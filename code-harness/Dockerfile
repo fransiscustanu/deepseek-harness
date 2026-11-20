@@ -11,9 +11,12 @@ ARG DSH_VERSION=0.2.2-rc.5
 RUN apt-get update \
  && apt-get install -y --no-install-recommends ca-certificates git python3 ripgrep tini \
  && rm -rf /var/lib/apt/lists/*
-RUN npm install -g "@deepseek-ai/dsh@${DSH_VERSION}" \
+# pnpm: DSH's Plugin Manager installs profile bundles with it (Creator mode).
+# Same major as the packageManager DSH's own repository pins.
+ARG PNPM_VERSION=11.28.5
+RUN npm install -g "@deepseek-ai/dsh@${DSH_VERSION}" "pnpm@${PNPM_VERSION}" \
  && npm cache clean --force \
- && dsh --version
+ && dsh --version && pnpm --version
 COPY rebrand /opt/code-harness-rebrand
 RUN node /opt/code-harness-rebrand/rebrand.mjs && rm -rf /opt/code-harness-rebrand
 LABEL org.opencontainers.image.source=https://github.com/fransiscustanu/deepseek-harness \

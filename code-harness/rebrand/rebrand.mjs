@@ -53,6 +53,8 @@ const walk = dir => {
     const path = join(dir, entry.name)
     if (entry.isDirectory()) { if (entry.name !== 'node_modules' && entry.name !== 'src') walk(path) }
     else if (/\.(js|mjs|cjs|json|ya?ml|html|webmanifest)$/.test(entry.name) && !entry.name.endsWith('.map')) owned.push(path)
+    // Skills are model-facing text (Creator mode's dsh-doc skill and its references).
+    else if (entry.name.endsWith('.md') && /\/skills\//.test(path)) owned.push(path)
   }
 }
 walk(join(dsh, 'lib'))
