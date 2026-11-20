@@ -1,10 +1,10 @@
 # Code Harness base image
 
-Built from this branch and pushed to the homelab registry on the nuc:
+Built from this branch and pushed to the homelab registry (run `docker login registry.nobs.my.id` first):
 
 ```sh
-docker build -t 127.0.0.1:5000/code-harness/dsh:0.2.2-rc.3 code-harness
-docker push 127.0.0.1:5000/code-harness/dsh:0.2.2-rc.3
+docker build -t registry.nobs.my.id/code-harness/dsh:0.2.2-rc.3 code-harness
+docker push registry.nobs.my.id/code-harness/dsh:0.2.2-rc.3
 ```
 
 Code Harness pins the pushed digest in its Dockerfile. To upgrade, rebase this
